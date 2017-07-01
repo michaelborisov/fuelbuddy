@@ -2,11 +2,14 @@ package michaelborisov.fuelbuddy;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,17 +26,46 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        prepareMap();
+        supportActionBarTunning();
+        initListeners();
+
+    }
+
+    private void prepareMap(){
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void supportActionBarTunning(){
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.layout_action_bar);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#330000ff")));
-        getSupportActionBar().setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#550000ff")));
+        getSupportActionBar().setBackgroundDrawable(
+                new ColorDrawable(Color.parseColor("#330000ff"))
+        );
+        getSupportActionBar().setStackedBackgroundDrawable(
+                new ColorDrawable(Color.parseColor("#550000ff"))
+        );
     }
 
 
+    private void initListeners(){
+        ImageView ivProfile = (ImageView)findViewById(R.id.profile);
+        setOnClickConfigurer(ivProfile, "Clicked on profile");
+
+        ImageView ivSettings = (ImageView)findViewById(R.id.settings);
+        setOnClickConfigurer(ivSettings, "Clicked on settings");
+    }
+
+    private void setOnClickConfigurer(View v, final String message){
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, message, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
