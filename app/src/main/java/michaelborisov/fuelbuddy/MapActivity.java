@@ -56,6 +56,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         ImageView ivSettings = (ImageView)findViewById(R.id.settings);
         setOnClickConfigurer(ivSettings, "Clicked on settings");
+
+        ImageView ivGeo = (ImageView)findViewById(R.id.ivGeo);
+        setOnClickConfigurer(ivGeo, "Clicked on geo");
+
+        ImageView ivPlus = (ImageView)findViewById(R.id.ivPlus);
+        setOnClickConfigurer(ivPlus, "Clicked on plus");
     }
 
     private void setOnClickConfigurer(View v, final String message){
